@@ -9,6 +9,7 @@ load_dotenv()
 client = OpenAI()
 
 def run_os_commands(command):
+    print("🔨 Tool Called: run_os_commands", command)
     result = os.system(command)
     return result
 
