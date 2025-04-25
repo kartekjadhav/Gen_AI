@@ -25,7 +25,7 @@ splitter = RecursiveCharacterTextSplitter(
 
 split_docs = splitter.split_documents(docs)
 
-print("SPLITTING DOCS LOADING DONE")
+print("SPLITTING DOCS DONE")
 
 #Vectore Store
 embedding = OpenAIEmbeddings(model="text-embedding-3-small")
@@ -43,6 +43,8 @@ print("INGESTION DONE!")
 #  QUERING
 
 def queryChain(question):
+    #Here we generate a response from LLM for the question and do similarity search on that answer.
+    #The retrieved documents are then returned.
     hypothetical_document = llm_chain.invoke({"question": question})
     print(len(hypothetical_document))
     print("hypothetical_document -> ",hypothetical_document)
@@ -66,6 +68,8 @@ llm_chain = SYSTEM_PROMPT_1 | llm | StrOutputParser()
 question = "What are benefits of eating apples?"
 
 relevant_chunks = queryChain(question)
+
+
 
 SYSTEM_PROMT_2 = PromptTemplate(
     input_variables=["context", "question"],
